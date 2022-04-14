@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-center">
+    <div class="order-2 order-lg-1">
+        <p class="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-4">Welcome to Pantry Saver</p>
+        <form [formGroup]='loginForm' (ngSubmit)="login()" autocomplete='off' class="mx-1 mx-md-6">
+            <div class="d-flex flex-row align-items-center mb-4 form-group">
+                <div class="form-outline flex-fill mb-0">
+                    <label class="form-label">User Name</label>
+                    <input type="text" class="form-control" formControlName='username' placeholder="User Name"
+                        [class.is-invalid]='loginForm.get("username")?.errors
+                      && loginForm.get("username")?.touched' />
+                    <div class="invalid-feedback">Please Enter Username</div>
+                </div>
+            </div>
+            <div class="d-flex flex-row align-items-center mb-4 form-group">
+                <div class="form-outline flex-fill mb-0">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" formControlName='password' placeholder="Password"
+                        [class.is-invalid]='loginForm.get("password")?.errors 
+                  && loginForm.get("password")?.touched' />
+                    <div *ngIf="loginForm.get('password')?.hasError('required')" class="invalid-feedback">Please Enter a
+                        password</div>
+                    <div *ngIf="loginForm.get('password')?.hasError('minlength')" class="invalid-feedback">Minium Length
+                        is at least 6 characters</div>
+                    <div *ngIf="loginForm.get('password')?.hasError('pattern')" class="invalid-feedback">Must contain
+                        at least 1 uppercase letter, 1 lowercase letter, and 1 special character!</div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center flex-row align-items-center mb-4">
+                <div *ngIf="showError" class="alert alert-danger" role="alert">
+                    {{errorMessage}}
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                <button type="button" style="padding:0.3rem 3rem;" class="btn btn-primary btn-lg"
+                    type="submit">Login</button>
+            </div>
+        </form>
+        <div class="d-flex justify-content-center flex-row align-items-center mb-4">
+            <div *ngIf="errorMessage == 'Email is not confirmed!'">
+                <button type="button" style="padding:0.3rem 3rem; color: brown;" class="btn btn-md"
+                    (click)="generateNewEmailConfirmation(loginForm.value.username)">Click here to
+                    generate a new email confirmation!</button>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center flex-row align-items-center mb-4">
+            <span>New! Don't have an account? <a routerLink="/authentication/register">Register</a></span>
+        </div>
+    </div>
+</div>

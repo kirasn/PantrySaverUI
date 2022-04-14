@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center">
+    <div class="order-2 order-lg-1">
+        <p class="text-center h1 fw-bold mb-3 mx-1 mx-md-4 mt-4">Email Confirmation</p>
+        <div *ngIf="showError" class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+        <div *ngIf="showSuccess" class="alert alert-success" role="alert">
+            <div class="d-flex justify-content-center flex-row align-items-center mb-4">
+                <span>Your email has been successfully confirmed. Please <a routerLink="/authentication/login">Log
+                        In</a></span>
+            </div>
+        </div>
+
+    </div>
+</div>
