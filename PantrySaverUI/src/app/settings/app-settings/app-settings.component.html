@@ -1,0 +1,130 @@
+<div class="card" style="margin-top: 1rem;">
+    <div class="card-header" style="display:inline-block;">
+        <p type="button" (click)="collapsePassword.toggle()" [attr.aria-expanded]="!isCollapsedPassword"
+            aria-controls="collapseExample">
+            Change Password
+            <fa-icon [icon]="isCollapsedPassword ? faChevronRight : faChevronDown" style="float: right;"></fa-icon>
+        </p>
+    </div>
+    <div #collapsePassword="ngbCollapse" [(ngbCollapse)]="isCollapsedPassword">
+        <div class="card-body">
+            <form [formGroup]='changePasswordForm' novalidate (ngSubmit)="changePassword()" autocomplete="off"
+                class="mx-1 mx-md-6">
+                <div class="d-flex flex-row align-items-center mb-4 form-group">
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">Current Password</label>
+                        <input type="password" class="form-control" formControlName='oldPassword'
+                            placeholder="Current Password" [class.is-invalid]='changePasswordForm.get("oldPassword")?.errors 
+                          && changePasswordForm.get("oldPassword")?.touched' />
+                        <div *ngIf="changePasswordForm.get('oldPassword')?.hasError('required')"
+                            class="invalid-feedback">
+                            Please
+                            Enter a password</div>
+                        <div *ngIf="changePasswordForm.get('oldPassword')?.hasError('minlength')"
+                            class="invalid-feedback">
+                            Minium
+                            Length is at least 6 characters</div>
+                        <div *ngIf="changePasswordForm.get('oldPassword')?.hasError('pattern')"
+                            class="invalid-feedback">
+                            Must
+                            contain
+                            at least 1 uppercase letter, 1 lowercase letter, and 1 special character!</div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row align-items-center mb-4 form-group">
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">New Password</label>
+                        <input type="password" class="form-control" formControlName='newPassword'
+                            placeholder="New Password" [class.is-invalid]='changePasswordForm.get("newPassword")?.errors 
+                          && changePasswordForm.get("newPassword")?.touched' />
+                        <div *ngIf="changePasswordForm.get('newPassword')?.hasError('required')"
+                            class="invalid-feedback">
+                            Please
+                            Enter a password</div>
+                        <div *ngIf="changePasswordForm.get('newPassword')?.hasError('minlength')"
+                            class="invalid-feedback">
+                            Minium
+                            Length is at least 6 characters</div>
+                        <div *ngIf="changePasswordForm.get('newPassword')?.hasError('pattern')"
+                            class="invalid-feedback">
+                            Must
+                            contain
+                            at least 1 uppercase letter, 1 lowercase letter, and 1 special character!</div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row align-items-center mb-4 form-group">
+                    <div class="form-outline flex-fill mb-0">
+                        <label class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" formControlName='confirmNewPassword'
+                            placeholder="Confirm Password" [class.is-invalid]='changePasswordForm.get("confirmNewPassword")?.errors 
+                          && changePasswordForm.get("confirmNewPassword")?.touched' />
+                        <div *ngIf="changePasswordForm.get('confirmNewPassword')?.hasError('required')"
+                            class="invalid-feedback">
+                            Please Enter a Confirm Password</div>
+                        <div *ngIf="changePasswordForm.get('confirmNewPassword')?.hasError('isMatching')"
+                            class="invalid-feedback">
+                            Confirm Password must be match Password</div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center flex-row align-items-center mb-4">
+                    <div *ngIf="showError" class="form-outline flex-fill mb-0">
+                        <div class="alert alert-danger" role="alert">
+                            {{errorMessage}}
+                        </div>
+                    </div>
+                    <div *ngIf="showSuccess" class="form-outline flex-fill mb-0">
+                        <div class="alert alert-success" role="alert">
+                            Your password has been succesfully changed!
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" style="padding:0.3rem 3rem;"
+                        class="btn1 btn btn-primary btn-lg">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 1rem;">
+    <div class="card-header" style="display:inline-block;">
+        <p type="button" (click)="collapse2FA.toggle()" [attr.aria-expanded]="!isCollapsed2FA"
+            aria-controls="collapseExample">
+            Two Factor Authentication
+            <fa-icon [icon]="isCollapsed2FA ? faChevronRight : faChevronDown" style="float: right; margin-left: 5rem;">
+            </fa-icon>
+        </p>
+    </div>
+    <div #collapse2FA="ngbCollapse" [(ngbCollapse)]="isCollapsed2FA">
+        <div class="card-body">
+            <p class="card-text">Add an extra layer of security to your account by requiring access to email when you
+                log in.
+            </p>
+            <div class="form-switch" style="margin-left: -40px;">
+                <label class="fw-bold">Enable Two Factor Authentication</label>
+                <input mdbCheckbox class="form-check-input " type="checkbox" [checked]="twoFAEnable ? true : false"
+                    (click)="change2FA()" style="float: right;">
+            </div>
+
+            <div class="d-flex justify-content-center flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                    <div *ngIf="show2FAMessage" class="alert alert-success" role="alert">
+                        {{twoFAMessage}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center" style="margin-top: 1rem;">
+                <p class="card-text fs-6 fw-lighter" *ngIf="twoFAEnable">Two Factor Authentication is currently enabled
+                    on
+                    your account.
+                <p class="card-text fs-6 fw-lighter" *ngIf="!twoFAEnable">Two Factor Authentication is currently
+                    disabled on
+                    your account.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>

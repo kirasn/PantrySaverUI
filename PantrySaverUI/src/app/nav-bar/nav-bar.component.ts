@@ -8,7 +8,7 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  public isCollapsed = false;
+  public isCollapsed = true;
   model: any = {}
 
   constructor(private router: Router, public accountSerivce: AccountService) { }

@@ -33,9 +33,16 @@ export class LoginComponent implements OnInit {
     this.showError = false;
     // console.log(this.loginForm.value);
 
-    this.accountService.login(this.loginForm.value).subscribe(response => {
-      alert("Please check your email for the 2 factor Authentication code");
-      this.router.navigate(['/authentication/twofactorauthentication'], { queryParams: { email: this.loginForm.value.username } });
+    this.accountService.login(this.loginForm.value).subscribe((response: any) => {
+      if (response.result == "Generated Token!") {
+        alert("Please check your email for the 2 factor Authentication code");
+        this.router.navigate(['/authentication/twofactorauthentication'], { queryParams: { email: this.loginForm.value.username } });
+      } else {
+        this.accountService.setCurrentUser(response);
+        localStorage.setItem('user', JSON.stringify(response));
+        alert("Login successful! Press Close to go to Home");
+        this.router.navigateByUrl('/home');
+      }
     }, error => {
       // console.log(error);
       this.errorMessage = error.error.result;

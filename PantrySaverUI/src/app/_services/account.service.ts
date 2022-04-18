@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { map, Observable, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
+import { UserProfile } from '../_models/userProfile';
+import { UserProfileUpdate } from '../_models/userProfileUpdate';
 import { CustomEncoder } from './encoder';
 
 @Injectable({
@@ -53,6 +55,26 @@ export class AccountService {
   generateNewEmailConfirmation = (username: string) => {
     let clientURI = this.webUrl + 'authentication/emailconfirmation';
     return this.httpClient.get(this.apiUrl + `Authentication/GenerateNewEmailConfirmation?username=${username}&clientURI=${clientURI}`);
+  }
+
+  getUserProfile() {
+    return this.httpClient.get<UserProfile>(this.apiUrl + 'Account/Profile');
+  }
+
+  updateUserProfile(userProfile: UserProfileUpdate) {
+    return this.httpClient.put(this.apiUrl + 'Account/Profile', userProfile);
+  }
+
+  changePassword(changePasswordForm: any) {
+    return this.httpClient.post(this.apiUrl + 'Authentication/ChangePassword', changePasswordForm);
+  }
+
+  getTwoFactorAuthentication() {
+    return this.httpClient.get(this.apiUrl + 'Authentication/TwoFactorAuthentication');
+  }
+
+  changeTwoFactorAuthentication() {
+    return this.httpClient.put(this.apiUrl + 'Authentication/TwoFactorAuthentication', null);
   }
 
   setCurrentUser(user: User) {
