@@ -85,4 +85,9 @@ export class AccountService {
   getDecodeToken(token: string) {
     return JSON.parse(atob(token.split('.')[1]));
   }
+
+  // Support
+  sendEmail(emailContent: any) {
+    return this.httpClient.post(this.apiUrl + 'Support/Email', emailContent);
+  }
 }

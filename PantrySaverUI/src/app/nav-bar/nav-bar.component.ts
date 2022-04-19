@@ -11,7 +11,7 @@ export class NavBarComponent implements OnInit {
   public isCollapsed = true;
   model: any = {}
 
-  constructor(private router: Router, public accountSerivce: AccountService) { }
+  constructor(private router: Router, public accountService: AccountService) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +21,7 @@ export class NavBarComponent implements OnInit {
   }
 
   logout() {
-    this.accountSerivce.logout();
+    this.accountService.logout();
     alert('Successful logout!');
     this.router.navigateByUrl('');
   }

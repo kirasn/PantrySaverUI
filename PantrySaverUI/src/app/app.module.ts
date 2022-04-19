@@ -8,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { YourPantriesComponent } from './your-pantries/your-pantries.component';
 import { GroceryListComponent } from './grocery-list/grocery-list.component';
 import { ItemsComponent } from './items/items.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
@@ -19,6 +18,10 @@ import { AppSettingsComponent } from './settings/app-settings/app-settings.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FooterComponent } from './footer/footer.component';
+import { YourPantriesMainComponent } from './your-pantries/your-pantries-main/your-pantries-main.component';
+import { NewPantryComponent } from './your-pantries/new-pantry/new-pantry.component';
+import { PantryComponent } from './your-pantries/pantry/pantry.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +29,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     NavBarComponent,
     NotFoundComponent,
-    YourPantriesComponent,
     GroceryListComponent,
     ItemsComponent,
     NotificationsComponent,
     SettingsMainComponent,
     ProfileSettingsComponent,
     AppSettingsComponent,
+    FooterComponent,
+    YourPantriesMainComponent,
+    NewPantryComponent,
+    PantryComponent,
   ],
   imports: [
     BrowserModule,

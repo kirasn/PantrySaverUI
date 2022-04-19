@@ -10,7 +10,7 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/home" routerLinkActive="active" aria-current="page">Home</a>
                 </li>
-                <ng-container *ngIf="(accountSerivce.$currentUser | async) as user">
+                <ng-container *ngIf="(accountService.$currentUser | async) as user">
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/yourpantries" routerLinkActive="active">Your
                             Pantries</a>
@@ -25,13 +25,13 @@
                 </ng-container>
             </ul>
             <ul class="navbar-nav justify-content-end">
-                <ng-container *ngIf="!(accountSerivce.$currentUser | async)">
+                <ng-container *ngIf="!(accountService.$currentUser | async)">
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/authentication/login" routerLinkActive="active"
                             aria-current="page" (click)="login()">Login</a>
                     </li>
                 </ng-container>
-                <ng-container *ngIf="(accountSerivce.$currentUser | async) as user">
+                <ng-container *ngIf="(accountService.$currentUser | async) as user">
                     <li class="nav-item">
                         <a class="nav-link">Welcome, {{user.username}}</a>
                     </li>

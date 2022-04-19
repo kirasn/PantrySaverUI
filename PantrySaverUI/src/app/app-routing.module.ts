@@ -6,7 +6,7 @@ import { ItemsComponent } from './items/items.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { SettingsMainComponent } from './settings/settings-main/settings-main.component';
-import { YourPantriesComponent } from './your-pantries/your-pantries.component';
+import { YourPantriesMainComponent } from './your-pantries/your-pantries-main/your-pantries-main.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'authentication', loadChildren: () => import('./Authentication/authentication.module')
       .then(m => m.AuthenticationModule)
   },
-  { path: 'yourpantries', component: YourPantriesComponent },
+  { path: 'yourpantries', component: YourPantriesMainComponent },
   { path: 'grocerylist', component: GroceryListComponent },
   { path: 'items', component: ItemsComponent },
   { path: 'notifications', component: NotificationsComponent },
