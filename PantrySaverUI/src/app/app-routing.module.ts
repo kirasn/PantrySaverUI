@@ -6,6 +6,7 @@ import { ItemsComponent } from './items/items.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { SettingsMainComponent } from './settings/settings-main/settings-main.component';
+import { PantryDetailComponent } from './your-pantries/pantry-detail/pantry-detail.component';
 import { YourPantriesMainComponent } from './your-pantries/your-pantries-main/your-pantries-main.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
       .then(m => m.AuthenticationModule)
   },
   { path: 'yourpantries', component: YourPantriesMainComponent },
+  { path: 'yourpantries/:pantryId', component: PantryDetailComponent },
   { path: 'grocerylist', component: GroceryListComponent },
   { path: 'items', component: ItemsComponent },
   { path: 'notifications', component: NotificationsComponent },
@@ -25,7 +27,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

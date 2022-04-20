@@ -2,7 +2,7 @@
     <div class="order-2 order-lg-1">
         <p class="text-center h3 mb-3 mx-1 mx-md-4 mt-4">Your profile information</p>
         <form [formGroup]='profileForm' (ngSubmit)="save(profileForm)" autocomplete='off' class="mx-1 mx-md-6"
-            *ngIf="userProfile | async; else loading">
+            *ngIf="userProfile | async">
             <!-- <p class="fw-lighter mb-3 mx-1 mx-md-4 mt-4">Joined in:</p> -->
             <div class="d-flex flex-row align-items-center mb-4 form-group">
                 <div class="form-outline flex-fill mb-0">
@@ -57,8 +57,5 @@
                     type="submit">Save</button>
             </div>
         </form>
-        <ng-template #loading>
-            Loading User Profile Information...
-        </ng-template>
     </div>
 </div>

@@ -1,1 +1,29 @@
-<p>pantry works!</p>
+<p class="h3 mb-3" style="margin-top: 2rem;">Your Pantries</p>
+<p class="fst-italic mb-3">All your pantries information will be here. Please click on the Pantry
+    Name to go to the Pantry Details Page.</p>
+<p class="mb-3 mx-1 mx-md-4" *ngIf="pantryList.length == 0">You don't have any pantries yet! Please try to
+    create a new pantry
+    using the form above.</p>
+<div *ngIf="pantryList.length > 0" style="margin-bottom: 5rem;">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Location</th>
+                <th scope="col">Own</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let pantry of pantryList" [routerLink]="['/yourpantries', pantry.pantry.pantryId]"
+                style=" cursor:pointer">
+                <td>{{
+                    pantry.pantry.pantryName}}</td>
+                <td>{{ pantry.pantry.location }}</td>
+                <td>{{ pantry.role }}</td>
+                <td>{{ pantry.role }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

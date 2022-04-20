@@ -48,8 +48,15 @@ export class AppSettingsComponent implements OnInit {
     this.showSuccess = false;
     this.showError = false;
 
+    if (!this.changePasswordForm.valid) {
+      this.showError = true;
+      this.errorMessage = "Please fill our all information above!";
+      return
+    }
+
     this.accountService.changePassword(this.changePasswordForm.value).subscribe(_ => {
       this.showSuccess = true;
+      this.changePasswordForm.reset();
     }, error => {
       // console.log(error);
       this.errorMessage = error.error.result;

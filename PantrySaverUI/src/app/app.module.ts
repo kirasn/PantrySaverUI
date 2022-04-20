@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,12 +17,14 @@ import { SettingsMainComponent } from './settings/settings-main/settings-main.co
 import { ProfileSettingsComponent } from './settings/profile-settings/profile-settings.component';
 import { AppSettingsComponent } from './settings/app-settings/app-settings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FooterComponent } from './footer/footer.component';
 import { YourPantriesMainComponent } from './your-pantries/your-pantries-main/your-pantries-main.component';
 import { NewPantryComponent } from './your-pantries/new-pantry/new-pantry.component';
 import { PantryComponent } from './your-pantries/pantry/pantry.component';
+import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { PantryDetailComponent } from './your-pantries/pantry-detail/pantry-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,18 +42,22 @@ import { PantryComponent } from './your-pantries/pantry/pantry.component';
     YourPantriesMainComponent,
     NewPantryComponent,
     PantryComponent,
+    PantryDetailComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+    NgxSpinnerModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

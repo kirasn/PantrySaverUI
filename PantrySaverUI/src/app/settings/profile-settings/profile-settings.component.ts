@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable, tap } from 'rxjs';
 import { UserProfile } from 'src/app/_models/userProfile';
 import { AccountService } from 'src/app/_services/account.service';
@@ -25,7 +26,8 @@ export class ProfileSettingsComponent implements OnInit {
   maxDate = { year: new Date().getUTCFullYear(), month: 12, day: 31 }
   minDate = { year: new Date().getUTCFullYear() - 100, month: 12, day: 31 }
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService,
+    private spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
@@ -42,6 +44,8 @@ export class ProfileSettingsComponent implements OnInit {
         });
       }
     ));
+
+    this.spinner.show();
   }
 
   save(profileForm: FormGroup) {
