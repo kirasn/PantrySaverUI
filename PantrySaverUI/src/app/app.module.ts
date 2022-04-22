@@ -42,7 +42,7 @@ import { PantryDetailComponent } from './your-pantries/pantry-detail/pantry-deta
     YourPantriesMainComponent,
     NewPantryComponent,
     PantryComponent,
-    PantryDetailComponent,
+    PantryDetailComponent
   ],
   imports: [
     BrowserModule,

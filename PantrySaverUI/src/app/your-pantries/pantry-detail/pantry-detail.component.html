@@ -1,1 +1,19 @@
 <p class="text-center h1 mb-3 mx-1 mx-md-4 mt-4">Your Pantry Detail</p>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" sortable="name" (sort)="onSort($any($event))">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Alert Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pantryItem of pantryItems">
+            <td> {{ pantryItem.item.name }} </td>
+            <td> {{ pantryItem.quantity | number }} </td>
+            <td> {{ pantryItem.alertQuantity | number }} </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,1 +1,109 @@
-<p>items works!</p>
+<div class="d-flex justify-content-center">
+    <div class="order-2 order-lg-1">
+        <p class="text-center h1 mb-3 mx-1 mx-md-4 mt-4">Items List</p>
+    </div>
+</div>
+
+<div class="divider py-1 bg-light"></div>
+
+<div class="d-flex" style="margin: 1rem;">
+    <div class="order-2 order-lg-1">
+        <p class="h3 mb-3">Create a new custom item for your own pantry</p>
+        <p class="fst-italic mb-3">Please provide the information for a new custom item that
+            will be used for your own pantry. You also can check if your item is also in the list of the system!</p>
+        <form [formGroup]='newItemForm' (ngSubmit)="addNewItem(newItemForm)" autocomplete='off' class="mx-4 mx-md-1">
+            <div class="d-flex flex-row align-items-center mb-4 form-group">
+                <div class="form-outline flex-fill mb-0">
+                    <label class="form-label">Item Name</label>
+                    <input type="text" class="form-control" formControlName='name' placeholder="Ex: Sugar, Flour,..."
+                        [class.is-invalid]='newItemForm.get("name")?.errors 
+                      && newItemForm.get("name")?.touched' />
+                    <div *ngIf="newItemForm.get('name')?.hasError('required')" class="invalid-feedback">
+                        Please Enter Item Name</div>
+                </div>
+            </div>
+            <div class="d-flex flex-row align-items-center mb-4 form-group">
+                <div class="form-outline flex-fill mb-0">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control" formControlName='description' placeholder="Description" />
+                </div>
+            </div>
+            <div *ngIf="showError" class="d-flex justify-content-center flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                    <div class="alert alert-danger" role="alert">
+                        {{errorMessage}}
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="showSuccess" class="d-flex justify-content-center flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                    <div class="alert alert-success" role="alert">
+                        {{successMessage}}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex" style="margin-top: 5px; float:right">
+                <button type="button" style="padding:0.3rem 3rem;" class="btn btn-primary btn-lg"
+                    type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="divider py-1 bg-light"></div>
+<p class="h3 mb-3" style="margin: 1rem;">Items</p>
+<p *ngIf="itemService.ITEMS == null" class="text-center fst-italic mb-3 mx-1 mx-md-4 mt-4">No Items Available!</p>
+<form *ngIf="itemService.ITEMS != null" style="margin: 1rem;">
+    <div class="mb-3 row">
+        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Enter the item name to
+            search:</label>
+        <div class="col-xs-3 col-sm-auto">
+            <input id="table-complete-search" type="text" class="form-control" name="searchTerm"
+                [(ngModel)]="itemService.searchTerm">
+        </div>
+        <span class="col col-form-label" *ngIf="itemService.loading | async">Loading...</span>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Description</th>
+                <th scope="col">Category</th>
+                <th scope="col">Owner</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of items | async">
+
+                <td>
+                    <ngb-highlight [result]="item.name" [term]="itemService.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="item.description" [term]="itemService.searchTerm"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="item.category" [term]="itemService.searchTerm"></ngb-highlight>
+                </td>
+                <td *ngIf="item.isCustom">
+                    <ngb-highlight result="Yes" [term]="itemService.searchTerm"></ngb-highlight>
+                </td>
+                <td *ngIf="!item.isCustom">
+                    <ngb-highlight result="System" [term]="itemService.searchTerm"></ngb-highlight>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="(total | async)!" [(page)]="itemService.page"
+            [pageSize]="itemService.pageSize">
+        </ngb-pagination>
+
+        <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="itemService.pageSize">
+            <option [ngValue]="10">10 items per page</option>
+            <option [ngValue]="25">25 items per page</option>
+            <option [ngValue]="50">50 items per page</option>
+        </select>
+    </div>
+</form>

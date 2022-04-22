@@ -1,10 +1,12 @@
-<p class="h3 mb-3" style="margin-top: 2rem;">Your Pantries</p>
-<p class="fst-italic mb-3">All your pantries information will be here. Please click on the Pantry
+<p class="h3 mb-3" style="margin: 1rem;">Your Pantries</p>
+<p class="fst-italic mb-3" style="margin-left: 1rem; margin-right: 1rem;">All your pantries information will be here.
+    Please click on the Pantry
     Name to go to the Pantry Details Page.</p>
-<p class="mb-3 mx-1 mx-md-4" *ngIf="pantryList.length == 0">You don't have any pantries yet! Please try to
+<p class="mb-3 mx-1 mx-md-4" *ngIf="pantryList.length == 0"
+    style="margin-bottom: 5rem; margin-left: 1rem; margin-right: 1rem;">You don't have any pantries yet! Please try to
     create a new pantry
     using the form above.</p>
-<div *ngIf="pantryList.length > 0" style="margin-bottom: 5rem;">
+<div *ngIf="pantryList.length > 0" style="margin-bottom: 5rem; margin-left: 1rem; margin-right: 1rem;">
     <table class="table table-striped">
         <thead>
             <tr>

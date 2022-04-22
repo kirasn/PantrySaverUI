@@ -26,7 +26,7 @@ export class PantryComponent implements OnInit {
   getPantries() {
     this.pantryService.getPantries().subscribe(result => {
       this.pantryList = result;
-      console.log(result);
+      // console.log(result);
     },
       error => {
         console.log(error);
