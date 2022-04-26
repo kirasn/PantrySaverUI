@@ -28,6 +28,12 @@
                     <input type="text" class="form-control" formControlName='description' placeholder="Description" />
                 </div>
             </div>
+            <div class="d-flex flex-row align-items-center mb-4 form-group">
+                <div class="form-outline flex-fill mb-0">
+                    <label class="form-label">Category</label>
+                    <input type="text" class="form-control" formControlName='category' placeholder="Category" />
+                </div>
+            </div>
             <div *ngIf="showError" class="d-flex justify-content-center flex-row align-items-center mb-4">
                 <div class="form-outline flex-fill mb-0">
                     <div class="alert alert-danger" role="alert">
@@ -52,10 +58,11 @@
 
 <div class="divider py-1 bg-light"></div>
 <p class="h3 mb-3" style="margin: 1rem;">Items</p>
-<p *ngIf="itemService.ITEMS == null" class="text-center fst-italic mb-3 mx-1 mx-md-4 mt-4">No Items Available!</p>
-<form *ngIf="itemService.ITEMS != null" style="margin: 1rem;">
+<p *ngIf="(items | async) == null" class="text-center fst-italic mb-3 mx-1 mx-md-4 mt-4">No Items Available</p>
+<form *ngIf="(items | async) != null" style="margin: 1rem;">
     <div class="mb-3 row">
-        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Enter the item name to
+        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Enter the item(name, description,
+            category) to
             search:</label>
         <div class="col-xs-3 col-sm-auto">
             <input id="table-complete-search" type="text" class="form-control" name="searchTerm"

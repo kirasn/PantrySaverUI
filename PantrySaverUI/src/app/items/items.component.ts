@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Item } from '../_models/item';
@@ -24,6 +24,7 @@ export class ItemsComponent implements OnInit {
   });
   items: Observable<Item[]>;
   total: Observable<number>;
+  selectedItem!: Item;
 
   constructor(public itemService: ItemsService) {
     this.items = itemService.items;
@@ -39,7 +40,8 @@ export class ItemsComponent implements OnInit {
 
     if (!item.valid) {
       this.showError = true;
-      this.errorMessage = "Please check the form requirement!";
+      this.errorMessage = "Name of item is requirement!";
+      return
     }
 
     let _newItem: Item = {
@@ -59,6 +61,7 @@ export class ItemsComponent implements OnInit {
       this.showSuccess = true;
       this.successMessage = result.result;
       this.itemService.getItems().subscribe(result => this.itemService.ITEMS = result);
+      this.items = this.itemService.items;
 
       this.newItemForm.reset();
     }, error => {

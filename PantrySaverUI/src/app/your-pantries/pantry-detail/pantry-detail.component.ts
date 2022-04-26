@@ -5,37 +5,6 @@ import { Pantry } from 'src/app/_models/pantry';
 import { PantryItem } from 'src/app/_models/pantryItem';
 import { PantryService } from 'src/app/_services/pantry.service';
 
-export type SortColumn = keyof PantryItem | '';
-export type SortDirection = 'asc' | 'desc' | '';
-const rotate: { [key: string]: SortDirection } = { 'asc': 'desc', 'desc': '', '': 'asc' };
-
-const compare = (v1: string | number | Date | Item, v2: string | number | Date | Item) => v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
-
-export interface SortEvent {
-  column: SortColumn;
-  direction: SortDirection;
-}
-
-@Directive({
-  selector: 'th[sortable]',
-  host: {
-    '[class.asc]': 'direction === "asc"',
-    '[class.desc]': 'direction === "desc"',
-    '(click)': 'rotate()'
-  }
-})
-
-export class SortTableHeader {
-  @Input() sortable: SortColumn = '';
-  @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEvent>();
-
-  rotate() {
-    this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortable, direction: this.direction });
-  }
-}
-
 @Component({
   selector: 'app-pantry-detail',
   templateUrl: './pantry-detail.component.html',
@@ -45,26 +14,6 @@ export class PantryDetailComponent {
   pantryId: string | null;
   pantryDetail!: Pantry;
   pantryItems: PantryItem[] = [];
-
-  @ViewChildren(SortTableHeader) headers!: QueryList<SortTableHeader>;
-
-  onSort({ column, direction }: SortEvent) {
-    this.headers.forEach(header => {
-      if (header.sortable != column) {
-        header.direction = '';
-      }
-    })
-
-    if (direction === '' || column === '') {
-      this.pantryItems = this.pantryDetail.pantryItems;
-    } else {
-      this.pantryItems = [...this.pantryDetail.pantryItems].sort((a, b) => {
-        const res = compare(a[column], b[column]);
-        return direction === 'asc' ? res : -res;
-      });
-    }
-  }
-
 
   constructor(private pantryService: PantryService,
     private activatedRoute: ActivatedRoute,
@@ -83,5 +32,4 @@ export class PantryDetailComponent {
     }
 
   }
-
 }
